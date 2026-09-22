@@ -36,8 +36,11 @@ export function createXaiOAuthAdapter(
       streamIdleTimeoutMs: XAI_OAUTH_STREAM_IDLE_TIMEOUT_MS,
       retryPolicy: resolveRetryPolicy(undefined, 'dsh-xai retryPolicy'),
       configuredMaxTokens: new Map(),
+      // dsh 0.1.5 resolves every model through modelErrors.get. The 0.1.0
+      // profile type this package typechecks against does not declare it.
+      modelErrors: new Map(),
       piProvider: session.provider(),
-    }]]),
+    } as ResolvedPiAiProviderProfile]]),
     resolveApiKey: async () => {
       const auth = await session.models.getAuth(XAI_PI_PROVIDER)
       const apiKey = auth?.auth.apiKey

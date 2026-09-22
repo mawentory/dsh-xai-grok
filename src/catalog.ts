@@ -45,6 +45,26 @@ function catalogModels(baseline: readonly Model<Api>[] = xaiProvider().getModels
   return baseline
 }
 
+/**
+ * xAI reasoning effort `xhigh` starts at Grok 4.6.
+ * Grok 4.5 and older accept only low, medium, and high.
+ * Grok 4.20 uses the same parameter for agent count, including `xhigh`.
+ */
+export function supportsXhigh(id: string): boolean {
+  const minor = /^grok-4\.(\d+)/.exec(id.toLowerCase())
+  if (minor === null) return false
+  return Number(minor[1]) >= 6
+}
+
+function withReasoningEffort(model: Model<Api>): Model<Api> {
+  const xhigh = supportsXhigh(model.id) ? 'xhigh' : null
+  if (model.thinkingLevelMap?.xhigh === xhigh) return model
+  return {
+    ...model,
+    thinkingLevelMap: { ...model.thinkingLevelMap, xhigh },
+  }
+}
+
 function templateFor(id: string, catalog: readonly Model<Api>[]): Model<Api> {
   const exact = catalog.find(model => model.id === id)
   if (exact !== undefined) return exact
@@ -54,8 +74,12 @@ function templateFor(id: string, catalog: readonly Model<Api>[]): Model<Api> {
   if (lower.includes('build') || lower.includes('code-fast')) {
     return catalog.find(model => model.id === 'grok-build-0.1') ?? fallback
   }
-  if (/grok-4\.[56]/.test(lower) || lower.includes('4.20') || lower.includes('reasoning')) {
-    return catalog.find(model => model.api === 'openai-responses') ?? fallback
+  // 4.5 is an exact catalog row. 4.6+ and 4.7, which the installed catalog may
+  // not list yet, stay on the Responses API like 4.5 and 4.6.
+  if (/grok-4\.[5-9]/.test(lower) || lower.includes('4.20') || lower.includes('reasoning')) {
+    return catalog.find(model => model.id === 'grok-4.6' && model.api === 'openai-responses')
+      ?? catalog.find(model => model.api === 'openai-responses')
+      ?? fallback
   }
   return fallback
 }
@@ -63,8 +87,8 @@ function templateFor(id: string, catalog: readonly Model<Api>[]): Model<Api> {
 /** Turn a live id into a pi-ai model, inheriting catalog metadata when possible. */
 export function materializeLiveModel(id: string, catalog: readonly Model<Api>[] = catalogModels()): Model<Api> {
   const template = templateFor(id, catalog)
-  if (template.id === id) return template
-  return { ...template, id, name: titleCaseId(id) }
+  const named = template.id === id ? template : { ...template, id, name: titleCaseId(id) }
+  return withReasoningEffort(named)
 }
 
 /**

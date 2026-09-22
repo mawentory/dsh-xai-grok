@@ -5,6 +5,7 @@ import {
   materializeLiveModel,
   mergeLiveCatalog,
   preferredXaiOAuthModelFrom,
+  supportsXhigh,
 } from '../src/catalog.ts'
 
 const catalog = xaiProvider().getModels()
@@ -44,6 +45,17 @@ describe('materializeLiveModel', () => {
   it('uses the build template for code-fast ids', () => {
     const model = materializeLiveModel('grok-code-fast-1', catalog)
     expect(model.api).toBe(catalog.find(entry => entry.id === 'grok-build-0.1')?.api)
+  })
+
+  it('gives grok-4.7 the Responses template and xhigh, and leaves xhigh off grok-4.5', () => {
+    const current = materializeLiveModel('grok-4.7', catalog)
+    const previous = materializeLiveModel('grok-4.5', catalog)
+    expect(current.api).toBe('openai-responses')
+    expect(current.thinkingLevelMap?.xhigh).toBe('xhigh')
+    expect(previous.thinkingLevelMap?.xhigh).toBeNull()
+    expect(supportsXhigh('grok-4.6')).toBe(true)
+    expect(supportsXhigh('grok-4.3')).toBe(false)
+    expect(supportsXhigh('grok-build-0.1')).toBe(false)
   })
 })
 
