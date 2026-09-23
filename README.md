@@ -12,6 +12,7 @@ This is an independent dsh bundle. It adds:
 - optional one-shot import of `~/.grok/auth.json` (Grok CLI). The Grok file is never written
 - after login or import, `GET https://api.x.ai/v1/models` narrows the picker to the signed-in account; the installed catalog is the fallback
 - streaming, tool calls, reasoning, and dsh compaction through the normal LLM service
+- Grok's own `web_search` and `x_search` on each `xai-oauth` Responses call. The model runs those searches. This plugin does not add an agent
 
 The catalog `xai` API-key route stays untouched. This plugin registers `xai-oauth` so both can coexist.
 

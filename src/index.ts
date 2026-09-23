@@ -12,6 +12,7 @@ import type {} from '@deepseek-ai/dsh-llm'
 import { createXaiOAuthAdapter } from './adapter.ts'
 import { registerXaiOAuthAuthRoutes } from './auth-routes.ts'
 import { XAI_OAUTH_ROUTE } from './ids.ts'
+import { installXaiSearchTools } from './search-tools.ts'
 import { XaiOAuthSession } from './session.ts'
 import { XaiOAuthCredentialStore } from './store.ts'
 
@@ -72,6 +73,7 @@ export const Config: z<Config> = z.object({})
  * @param ctx - plugin context carrying the LLM registry plus optional web server.
  */
 export function apply(ctx: Context, _config: Config): void {
+  installXaiSearchTools()
   const session = new XaiOAuthSession(new XaiOAuthCredentialStore(), () => {
     ctx.emit('llm/adapters-updated')
   })
