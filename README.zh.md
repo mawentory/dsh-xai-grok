@@ -1,4 +1,4 @@
-# dsh-xai
+# dsh-xai-grok
 
 [English](README.md) | 中文
 
@@ -18,14 +18,14 @@
 **不用先自己 clone。** `dsh plugin add` 会按 GitHub 地址把包装进当前 profile。
 
 ```sh
-dsh plugin --profile web add github:MirDie/dsh-xai
+dsh plugin --profile web add github:mawentory/dsh-xai-grok
 dsh web
 ```
 
 用 `npx` 起的 Web、PATH 里没有 `dsh` 时，把前面的 `dsh` 换成 `npx @deepseek-ai/dsh`：
 
 ```sh
-npx @deepseek-ai/dsh plugin --profile web add github:MirDie/dsh-xai
+npx @deepseek-ai/dsh plugin --profile web add github:mawentory/dsh-xai-grok
 npx @deepseek-ai/dsh web
 ```
 
@@ -34,10 +34,10 @@ npx @deepseek-ai/dsh web
 打开 **设置 → xAI Grok → 使用 SuperGrok 登录**。插件会走 device-code，打开验证链接，你在浏览器里批准即可。无头 / SSH 可以用 CLI：
 
 ```sh
-dsh plugin --profile web exec dsh-xai login
-dsh plugin --profile web exec dsh-xai import
-dsh plugin --profile web exec dsh-xai status
-dsh plugin --profile web exec dsh-xai logout
+dsh plugin --profile web exec dsh-xai-grok login
+dsh plugin --profile web exec dsh-xai-grok import
+dsh plugin --profile web exec dsh-xai-grok status
+dsh plugin --profile web exec dsh-xai-grok logout
 ```
 
 新会话默认选 `xai-oauth` / `grok-4.5`。dsh 里已经存过的默认模型仍然优先。
@@ -47,8 +47,8 @@ dsh plugin --profile web exec dsh-xai logout
 只有在改这个插件本身时，才需要把仓库拉到本地，再用路径安装：
 
 ```sh
-git clone https://github.com/MirDie/dsh-xai.git
-dsh plugin --profile web add ./dsh-xai
+git clone https://github.com/mawentory/dsh-xai-grok.git
+dsh plugin --profile web add ./dsh-xai-grok
 ```
 
 ## 凭证

@@ -1,6 +1,8 @@
-# dsh-xai
+# dsh-xai-grok
 
 English | [中文](README.zh.md)
+
+Derived from [MirDie/dsh-xai](https://github.com/MirDie/dsh-xai). This repo is the copy we run.
 
 Use a SuperGrok or X Premium subscription in [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness) through xAI's device-code sign-in — no `XAI_API_KEY` required, and no dsh source patch required.
 
@@ -18,14 +20,14 @@ The catalog `xai` API-key route stays untouched. This plugin registers `xai-oaut
 You do **not** need to clone this repository first. `dsh plugin add` fetches the package into the profile:
 
 ```sh
-dsh plugin --profile web add github:MirDie/dsh-xai
+dsh plugin --profile web add github:mawentory/dsh-xai-grok
 dsh web
 ```
 
 If you started the UI with `npx` and have no `dsh` on PATH, use the same package as the CLI:
 
 ```sh
-npx @deepseek-ai/dsh plugin --profile web add github:MirDie/dsh-xai
+npx @deepseek-ai/dsh plugin --profile web add github:mawentory/dsh-xai-grok
 npx @deepseek-ai/dsh web
 ```
 
@@ -34,17 +36,17 @@ Do not run `npm dsh` or `pnpm dsh` from your home directory. `npx` does not inst
 Clone only when you are changing this plugin:
 
 ```sh
-git clone https://github.com/MirDie/dsh-xai.git
-dsh plugin --profile web add ./dsh-xai
+git clone https://github.com/mawentory/dsh-xai-grok.git
+dsh plugin --profile web add ./dsh-xai-grok
 ```
 
 Open **Settings → xAI Grok → Sign in with SuperGrok**. The plugin starts xAI's device-code flow, opens the verification URL, and polls until you approve. Headless / SSH hosts can use the CLI instead:
 
 ```sh
-dsh plugin --profile web exec dsh-xai login
-dsh plugin --profile web exec dsh-xai import
-dsh plugin --profile web exec dsh-xai status
-dsh plugin --profile web exec dsh-xai logout
+dsh plugin --profile web exec dsh-xai-grok login
+dsh plugin --profile web exec dsh-xai-grok import
+dsh plugin --profile web exec dsh-xai-grok status
+dsh plugin --profile web exec dsh-xai-grok logout
 ```
 
 The bundle selects `xai-oauth` / `grok-4.5` for new agents. A model already saved in dsh settings still takes precedence.

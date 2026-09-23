@@ -4,11 +4,11 @@ import { useCallback, useEffect, useState } from 'react'
 import type { CSSProperties } from 'react'
 import type { XaiOAuthSettingsKey } from './locales.ts'
 
-const STATUS_PATH = '/plugins/dsh-xai/auth/status'
-const LOGIN_PATH = '/plugins/dsh-xai/auth/login'
-const IMPORT_PATH = '/plugins/dsh-xai/auth/import'
-const LOGOUT_PATH = '/plugins/dsh-xai/auth/logout'
-const MODELS_PATH = '/plugins/dsh-xai/auth/models'
+const STATUS_PATH = '/plugins/dsh-xai-grok/auth/status'
+const LOGIN_PATH = '/plugins/dsh-xai-grok/auth/login'
+const IMPORT_PATH = '/plugins/dsh-xai-grok/auth/import'
+const LOGOUT_PATH = '/plugins/dsh-xai-grok/auth/logout'
+const MODELS_PATH = '/plugins/dsh-xai-grok/auth/models'
 const POLL_INTERVAL_MS = 1_000
 
 type CatalogSource = 'live' | 'cache' | 'fallback'

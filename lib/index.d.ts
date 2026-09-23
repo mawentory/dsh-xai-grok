@@ -94,11 +94,11 @@ declare function loginXaiOAuthSession(interaction: AuthInteraction, session: Xai
 declare function importXaiOAuthSession(session: XaiOAuthSession, filename?: string): Promise<void>;
 //#endregion
 //#region src/auth-routes.d.ts
-declare const XAI_OAUTH_AUTH_STATUS_PATH = "/plugins/dsh-xai/auth/status";
-declare const XAI_OAUTH_AUTH_LOGIN_PATH = "/plugins/dsh-xai/auth/login";
-declare const XAI_OAUTH_AUTH_IMPORT_PATH = "/plugins/dsh-xai/auth/import";
-declare const XAI_OAUTH_AUTH_LOGOUT_PATH = "/plugins/dsh-xai/auth/logout";
-declare const XAI_OAUTH_AUTH_MODELS_PATH = "/plugins/dsh-xai/auth/models";
+declare const XAI_OAUTH_AUTH_STATUS_PATH = "/plugins/dsh-xai-grok/auth/status";
+declare const XAI_OAUTH_AUTH_LOGIN_PATH = "/plugins/dsh-xai-grok/auth/login";
+declare const XAI_OAUTH_AUTH_IMPORT_PATH = "/plugins/dsh-xai-grok/auth/import";
+declare const XAI_OAUTH_AUTH_LOGOUT_PATH = "/plugins/dsh-xai-grok/auth/logout";
+declare const XAI_OAUTH_AUTH_MODELS_PATH = "/plugins/dsh-xai-grok/auth/models";
 type XaiOAuthWebAuthStatus = {
   status: 'signed-out';
   grokImportAvailable: boolean;

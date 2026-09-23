@@ -20,7 +20,7 @@ export const inject = ['slots', 'locale']
 
 export function apply(ctx: ClientContext): void {
   const namespace = 'settings.xai-oauth'
-  ctx.effect(() => ctx.locale.register(namespace, { zh, en }), 'dsh-xai: settings copy')
+  ctx.effect(() => ctx.locale.register(namespace, { zh, en }), 'dsh-xai-grok: settings copy')
   const t = ctx.locale.bind(namespace) as XaiOAuthSettingsInjected['t']
   ctx.slots.inject('settings.section', () => ctx.slots.register({
     name: 'settings.section',

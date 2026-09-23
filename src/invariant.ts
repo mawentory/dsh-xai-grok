@@ -6,7 +6,7 @@
 import type { Context } from '@deepseek-ai/cordis'
 import type { InvariantInstaller } from '@deepseek-ai/dsh-invariants'
 
-const PACKAGE_NAME = 'dsh-xai'
+const PACKAGE_NAME = 'dsh-xai-grok'
 
 export const name = 'xai-oauth-invariant'
 export const inject = ['invariants']

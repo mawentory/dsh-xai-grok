@@ -1,4 +1,4 @@
-# Install dsh-xai
+# Install dsh-xai-grok
 
 [English](INSTALL.md) | [中文](INSTALL.zh.md)
 
@@ -15,20 +15,20 @@ Idempotent runbook for humans and automation agents.
 Do not clone first. Point `dsh plugin add` at GitHub:
 
 ```sh
-dsh plugin --profile web add github:MirDie/dsh-xai
+dsh plugin --profile web add github:mawentory/dsh-xai-grok
 ```
 
 From a DeepSeek Harness source checkout, prefix with `pnpm`:
 
 ```sh
-pnpm dsh plugin --profile web add github:MirDie/dsh-xai
+pnpm dsh plugin --profile web add github:mawentory/dsh-xai-grok
 ```
 
 This repository ships `lib/`, so a git install does not run build scripts. If you installed an older commit and pnpm still asks for `allowBuilds` / `onlyBuiltDependencies`, put the printed package key in that profile's `pnpm-workspace.yaml` and re-run `add`:
 
 ```yaml
 allowBuilds:
-  dsh-xai: true
+  dsh-xai-grok: true
 ```
 
 The file is usually `~/.dsh/profiles/web/pnpm-workspace.yaml` (create it if missing). Do not use `npm dsh` or `pnpm dsh` from your home directory.
@@ -36,8 +36,8 @@ The file is usually `~/.dsh/profiles/web/pnpm-workspace.yaml` (create it if miss
 ## Clone only for development
 
 ```sh
-git clone https://github.com/MirDie/dsh-xai.git
-cd dsh-xai
+git clone https://github.com/mawentory/dsh-xai-grok.git
+cd dsh-xai-grok
 npm install
 npm run check
 dsh plugin --profile web add .
@@ -55,9 +55,9 @@ Web UI:
 CLI / headless:
 
 ```sh
-dsh plugin --profile web exec dsh-xai login
-dsh plugin --profile web exec dsh-xai import
-dsh plugin --profile web exec dsh-xai status
+dsh plugin --profile web exec dsh-xai-grok login
+dsh plugin --profile web exec dsh-xai-grok import
+dsh plugin --profile web exec dsh-xai-grok status
 ```
 
 `import` reads `~/.grok/auth.json` and writes only `$DSH_HOME/.xai-oauth-auth.json`. After a successful login or import the plugin calls `GET /v1/models` and caches the account-visible ids.
@@ -65,8 +65,8 @@ dsh plugin --profile web exec dsh-xai status
 ## Uninstall
 
 ```sh
-dsh plugin --profile web exec dsh-xai logout
-dsh plugin --profile web remove dsh-xai
+dsh plugin --profile web exec dsh-xai-grok logout
+dsh plugin --profile web remove dsh-xai-grok
 ```
 
 Logout is required if the local OAuth document should be deleted. Removing the package leaves `$DSH_HOME/.xai-oauth-auth.json` in place.

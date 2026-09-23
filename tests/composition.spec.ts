@@ -11,7 +11,7 @@ describe('bundle composition', () => {
     expect(patch).toContain('provider: xai-oauth')
     expect(patch).toMatch(/model: grok-4\./)
     expect(patch).toContain('id: llm-xai-oauth')
-    expect(patch).toContain('name: dsh-xai')
+    expect(patch).toContain('name: dsh-xai-grok')
   })
 
   it('declares a dsh bundle and web client half', async () => {
@@ -19,7 +19,7 @@ describe('bundle composition', () => {
       name: string
       dsh: { bundle: { patch: string }; client: { platform: string } }
     }
-    expect(manifest.name).toBe('dsh-xai')
+    expect(manifest.name).toBe('dsh-xai-grok')
     expect(manifest.dsh.bundle.patch).toBe('./cordis.patch.yml')
     expect(manifest.dsh.client.platform).toBe('web')
   })

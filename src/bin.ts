@@ -76,7 +76,7 @@ async function answerPrompt(
 
 function printHelp(): void {
   process.stdout.write([
-    'Usage: dsh-xai <login|logout|status|import>',
+    'Usage: dsh-xai-grok <login|logout|status|import>',
     '',
     '  login   sign in with SuperGrok or X Premium (device code)',
     '  import  copy ~/.grok/auth.json into the dsh store (does not modify Grok CLI)',
@@ -93,12 +93,12 @@ export async function run(argv: readonly string[]): Promise<number> {
   }
   const [rawAction, ...flags] = argv
   if (rawAction !== 'login' && rawAction !== 'logout' && rawAction !== 'status' && rawAction !== 'import') {
-    process.stderr.write(`dsh-xai: expected login, logout, status, or import; got ${JSON.stringify(rawAction)}\n`)
+    process.stderr.write(`dsh-xai-grok: expected login, logout, status, or import; got ${JSON.stringify(rawAction)}\n`)
     return 1
   }
   const action: Action = rawAction
   if (flags.length > 0) {
-    process.stderr.write(`dsh-xai: invalid options for ${action}: ${flags.join(' ')}\n`)
+    process.stderr.write(`dsh-xai-grok: invalid options for ${action}: ${flags.join(' ')}\n`)
     return 1
   }
   try {
@@ -120,7 +120,7 @@ export async function run(argv: readonly string[]): Promise<number> {
         process.stdout.write(`xAI Grok for dsh: signed in${suffix}\n`)
         process.stdout.write(`models (${session.catalogSource}): ${models}\n`)
         if (session.catalogError !== undefined) {
-          process.stderr.write(`dsh-xai: live /models failed: ${session.catalogError}\n`)
+          process.stderr.write(`dsh-xai-grok: live /models failed: ${session.catalogError}\n`)
         }
         return 0
       }
@@ -154,7 +154,7 @@ export async function run(argv: readonly string[]): Promise<number> {
       }
     }
   } catch (error: unknown) {
-    process.stderr.write(`dsh-xai: ${action} failed: ${safeMessage(error)}\n`)
+    process.stderr.write(`dsh-xai-grok: ${action} failed: ${safeMessage(error)}\n`)
     return 1
   }
 }

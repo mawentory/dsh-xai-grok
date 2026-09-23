@@ -8,4 +8,4 @@
 
 - insert:
     - id: llm-xai-oauth
-      name: dsh-xai
+      name: dsh-xai-grok

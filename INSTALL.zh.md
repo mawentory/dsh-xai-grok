@@ -1,4 +1,4 @@
-# 安装 dsh-xai
+# 安装 dsh-xai-grok
 
 [English](INSTALL.md) | 中文
 
@@ -15,21 +15,21 @@
 日常安装用 GitHub 规格即可，`dsh` 会自己下载并装进 profile：
 
 ```sh
-dsh plugin --profile web add github:MirDie/dsh-xai
+dsh plugin --profile web add github:mawentory/dsh-xai-grok
 dsh web
 ```
 
 从 dsh 源码目录启动时：
 
 ```sh
-pnpm dsh plugin --profile web add github:MirDie/dsh-xai
+pnpm dsh plugin --profile web add github:mawentory/dsh-xai-grok
 ```
 
 仓库已经带构建好的 `lib/`，git 安装不跑构建脚本。若你装到的还是旧提交、pnpm 仍提示 `allowBuilds` / `onlyBuiltDependencies`，把提示里的包名写进该 profile 的 `pnpm-workspace.yaml` 后再 `add` 一次：
 
 ```yaml
 allowBuilds:
-  dsh-xai: true
+  dsh-xai-grok: true
 ```
 
 文件一般在 `~/.dsh/profiles/web/pnpm-workspace.yaml`（没有就新建）。不要改成 `npm dsh` 或在家目录跑 `pnpm dsh`。
@@ -37,8 +37,8 @@ allowBuilds:
 ## 只有开发时才 clone
 
 ```sh
-git clone https://github.com/MirDie/dsh-xai.git
-cd dsh-xai
+git clone https://github.com/mawentory/dsh-xai-grok.git
+cd dsh-xai-grok
 npm install
 npm run check
 dsh plugin --profile web add .
@@ -56,14 +56,14 @@ Web UI：
 也可以导入本机已经登录过的 Grok CLI：设置页的「从 Grok CLI 导入」，或：
 
 ```sh
-dsh plugin --profile web exec dsh-xai import
+dsh plugin --profile web exec dsh-xai-grok import
 ```
 
 CLI / 无头：
 
 ```sh
-dsh plugin --profile web exec dsh-xai login
-dsh plugin --profile web exec dsh-xai status
+dsh plugin --profile web exec dsh-xai-grok login
+dsh plugin --profile web exec dsh-xai-grok status
 ```
 
 `import` 只读 `~/.grok/auth.json`，只写 `$DSH_HOME/.xai-oauth-auth.json`。登录或导入成功后会请求 `GET /v1/models`，并缓存账号可见的模型 id。
@@ -71,8 +71,8 @@ dsh plugin --profile web exec dsh-xai status
 ## 卸载
 
 ```sh
-dsh plugin --profile web exec dsh-xai logout
-dsh plugin --profile web remove dsh-xai
+dsh plugin --profile web exec dsh-xai-grok logout
+dsh plugin --profile web remove dsh-xai-grok
 ```
 
 如果要删掉本地 OAuth 文件，需要先 `logout`。只 `remove` 包装不会删除 `$DSH_HOME/.xai-oauth-auth.json`。

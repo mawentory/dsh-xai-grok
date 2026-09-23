@@ -10,11 +10,11 @@ import { probeGrokAuth } from './grok-import.ts'
 import { safeMessage } from './redact.ts'
 import type { XaiOAuthSession } from './session.ts'
 
-export const XAI_OAUTH_AUTH_STATUS_PATH = '/plugins/dsh-xai/auth/status'
-export const XAI_OAUTH_AUTH_LOGIN_PATH = '/plugins/dsh-xai/auth/login'
-export const XAI_OAUTH_AUTH_IMPORT_PATH = '/plugins/dsh-xai/auth/import'
-export const XAI_OAUTH_AUTH_LOGOUT_PATH = '/plugins/dsh-xai/auth/logout'
-export const XAI_OAUTH_AUTH_MODELS_PATH = '/plugins/dsh-xai/auth/models'
+export const XAI_OAUTH_AUTH_STATUS_PATH = '/plugins/dsh-xai-grok/auth/status'
+export const XAI_OAUTH_AUTH_LOGIN_PATH = '/plugins/dsh-xai-grok/auth/login'
+export const XAI_OAUTH_AUTH_IMPORT_PATH = '/plugins/dsh-xai-grok/auth/import'
+export const XAI_OAUTH_AUTH_LOGOUT_PATH = '/plugins/dsh-xai-grok/auth/logout'
+export const XAI_OAUTH_AUTH_MODELS_PATH = '/plugins/dsh-xai-grok/auth/models'
 
 export type XaiOAuthWebAuthStatus =
   | { status: 'signed-out'; grokImportAvailable: boolean }
@@ -296,5 +296,5 @@ export function registerXaiOAuthAuthRoutes(
       for (const dispose of routes) dispose()
       await auth.dispose()
     }
-  }, 'dsh-xai: Web OAuth routes')
+  }, 'dsh-xai-grok: Web OAuth routes')
 }

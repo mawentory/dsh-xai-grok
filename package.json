@@ -1,5 +1,5 @@
 {
-  "name": "dsh-xai",
+  "name": "dsh-xai-grok",
   "description": "xAI Grok SuperGrok / X Premium OAuth for DeepSeek Harness",
   "version": "0.1.0",
   "publishConfig": {
@@ -8,13 +8,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/MirDie/dsh-xai.git"
+    "url": "git+https://github.com/mawentory/dsh-xai-grok.git"
   },
   "type": "module",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "bin": {
-    "dsh-xai": "lib/bin.js"
+    "dsh-xai-grok": "lib/bin.js"
   },
   "scripts": {
     "build": "npm run typecheck && tsdown && node scripts/wrap-client.mjs",
