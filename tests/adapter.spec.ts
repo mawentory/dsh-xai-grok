@@ -33,9 +33,9 @@ describe('xAI OAuth image policy', () => {
     expect(profile).toBeDefined()
     expect(Number.isSafeInteger(profile!.requestImagePixelBudget)).toBe(true)
     expect(profile!.requestImagePixelBudget).toBeGreaterThan(0)
-    expect(profile!.requestImagePixelBudget).toBe(2048 * 2048)
-    expect(profile!.requestImageMaxBytes).toBe(1024 * 1024)
-    expect(profile!.maxRequestImageBytes).toBe(20 * 1024 * 1024)
+    expect(profile!.requestImagePixelBudget).toBe(Number.MAX_SAFE_INTEGER)
+    expect(profile!.requestImageMaxBytes).toBe(20 * 1024 * 1024)
+    expect(profile!.maxRequestImageBytes).toBe(20 * 20 * 1024 * 1024)
   })
 })
 

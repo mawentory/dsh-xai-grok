@@ -39,12 +39,16 @@ export function createXaiOAuthAdapter(
       // dsh 0.1.5 resolves every model through modelErrors.get. The 0.1.0
       // profile type this package typechecks against does not declare it.
       modelErrors: new Map(),
-      // A hand-built profile skips the host resolver that fills these in.
-      // An image in the turn then fails: maxPixels must be a positive integer.
-      // Numbers are the dsh-llm-pi-ai defaults: 2048² px, 1 MiB encoded, 20 MiB per request.
-      maxRequestImageBytes: 20 * 1024 * 1024,
-      requestImagePixelBudget: 2048 * 2048,
-      requestImageMaxBytes: 1024 * 1024,
+      // A hand-built profile skips the host resolver, so these must be set or an
+      // image turn throws "maxPixels must be a positive integer".
+      // xAI publishes one image limit: 20MiB per image, jpeg/png, no count cap,
+      // and no pixel cap.
+      // https://docs.x.ai/developers/model-capabilities/images/understanding
+      // The pixel budget is only here because the harness requires a positive
+      // integer. It is large so an image already under 20MiB is not downscaled.
+      maxRequestImageBytes: 20 * 20 * 1024 * 1024,
+      requestImagePixelBudget: Number.MAX_SAFE_INTEGER,
+      requestImageMaxBytes: 20 * 1024 * 1024,
       piProvider: session.provider(),
     } as ResolvedPiAiProviderProfile]]),
     resolveApiKey: async () => {
