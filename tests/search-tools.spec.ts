@@ -12,6 +12,21 @@ describe('withSearchTools', () => {
     expect(tools.map(tool => tool.type)).toEqual(['function', 'web_search', 'x_search'])
   })
 
+  it('replaces a function tool that already uses the web_search name', () => {
+    const body = withSearchTools(JSON.stringify({
+      tools: [
+        { type: 'function', name: 'web_search', parameters: { type: 'object' } },
+        { type: 'function', name: 'web_fetch' },
+        { type: 'function', function: { name: 'x_search' } },
+      ],
+    }))
+    expect(JSON.parse(body).tools).toEqual([
+      { type: 'function', name: 'web_fetch' },
+      { type: 'web_search' },
+      { type: 'x_search' },
+    ])
+  })
+
   it('does not duplicate tools that are already present', () => {
     const original = JSON.stringify({ tools: [{ type: 'web_search' }, { type: 'x_search' }] })
     expect(withSearchTools(original)).toBe(original)
