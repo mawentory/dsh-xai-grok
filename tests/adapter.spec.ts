@@ -1,7 +1,8 @@
 import { describe, expect, it } from 'vitest'
 import { xaiProvider } from '@earendil-works/pi-ai/providers/xai'
-import { preferredXaiOAuthModel } from '../src/adapter.ts'
-import { DEFAULT_XAI_OAUTH_MODEL } from '../src/ids.ts'
+import { createXaiOAuthAdapter, preferredXaiOAuthModel } from '../src/adapter.ts'
+import { DEFAULT_XAI_OAUTH_MODEL, XAI_OAUTH_ROUTE } from '../src/ids.ts'
+import { XaiOAuthSession } from '../src/session.ts'
 
 describe('preferredXaiOAuthModel', () => {
   it('prefers grok-4.6 when the catalog ships it, otherwise grok-4.5', () => {
@@ -16,6 +17,25 @@ describe('preferredXaiOAuthModel', () => {
     const provider = xaiProvider()
     expect(provider.id).toBe('xai')
     expect(provider.getModels().length).toBeGreaterThan(0)
+  })
+})
+
+describe('xAI OAuth image policy', () => {
+  it('gives the route a positive pixel budget and byte caps', () => {
+    const adapter = createXaiOAuthAdapter(new XaiOAuthSession(), () => undefined) as unknown as {
+      config: { profiles: () => Map<string, {
+        requestImagePixelBudget: number
+        requestImageMaxBytes: number
+        maxRequestImageBytes: number
+      }> }
+    }
+    const profile = adapter.config.profiles().get(XAI_OAUTH_ROUTE)
+    expect(profile).toBeDefined()
+    expect(Number.isSafeInteger(profile!.requestImagePixelBudget)).toBe(true)
+    expect(profile!.requestImagePixelBudget).toBeGreaterThan(0)
+    expect(profile!.requestImagePixelBudget).toBe(2048 * 2048)
+    expect(profile!.requestImageMaxBytes).toBe(1024 * 1024)
+    expect(profile!.maxRequestImageBytes).toBe(20 * 1024 * 1024)
   })
 })
 

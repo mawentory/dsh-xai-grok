@@ -39,6 +39,12 @@ export function createXaiOAuthAdapter(
       // dsh 0.1.5 resolves every model through modelErrors.get. The 0.1.0
       // profile type this package typechecks against does not declare it.
       modelErrors: new Map(),
+      // A hand-built profile skips the host resolver that fills these in.
+      // An image in the turn then fails: maxPixels must be a positive integer.
+      // Numbers are the dsh-llm-pi-ai defaults: 2048² px, 1 MiB encoded, 20 MiB per request.
+      maxRequestImageBytes: 20 * 1024 * 1024,
+      requestImagePixelBudget: 2048 * 2048,
+      requestImageMaxBytes: 1024 * 1024,
       piProvider: session.provider(),
     } as ResolvedPiAiProviderProfile]]),
     resolveApiKey: async () => {
