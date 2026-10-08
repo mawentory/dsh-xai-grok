@@ -41,11 +41,11 @@ export function createXaiOAuthAdapter(
       modelErrors: new Map(),
       // A hand-built profile skips the host resolver, so these must be set or an
       // image turn throws "maxPixels must be a positive integer".
-      // xAI publishes one image limit: 20MiB per image, jpeg/png, no count cap,
-      // and no pixel cap.
+      // xAI publishes a 20MiB per-image cap (jpeg/png, no count cap). The API
+      // also rejects width×height under 512 pixels even though the understanding
+      // guide omits that floor. DSH will not upscale; the fetch wrapper does.
       // https://docs.x.ai/developers/model-capabilities/images/understanding
-      // The pixel budget is only here because the harness requires a positive
-      // integer. It is large so an image already under 20MiB is not downscaled.
+      // The pixel budget is large so an image already under 20MiB is not downscaled.
       maxRequestImageBytes: 20 * 20 * 1024 * 1024,
       requestImagePixelBudget: Number.MAX_SAFE_INTEGER,
       requestImageMaxBytes: 20 * 1024 * 1024,

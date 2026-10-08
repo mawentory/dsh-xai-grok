@@ -4,6 +4,8 @@
  * @module dsh-xai/search-tools
  */
 
+import { withMinImagePixels } from './image-min-pixels.ts'
+
 const SEARCH_TOOL_TYPES = ['web_search', 'x_search'] as const
 const INSTALLED = Symbol.for('dsh-xai-grok.search-tools')
 
@@ -70,7 +72,8 @@ function requestUrl(input: FetchInput): string {
 function rewriteInit(input: FetchInput, init?: RequestInit): RequestInit | undefined {
   const url = requestUrl(input)
   if (!isXaiResponsesRequest(url) || typeof init?.body !== 'string') return init
-  const body = withSearchTools(init.body)
+  const withTools = withSearchTools(init.body)
+  const body = withMinImagePixels(withTools)
   if (body === init.body) return init
   return { ...init, body }
 }
